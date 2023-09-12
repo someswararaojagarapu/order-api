@@ -12,6 +12,15 @@
             "./src/ApiResource/.gitignore"
         ]
     },
+    "doctrine/annotations": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.10",
+            "ref": "64d8583af5ea57b7afa4aba4b159907f3a148b05"
+        }
+    },
     "doctrine/doctrine-bundle": {
         "version": "2.10",
         "recipe": {
@@ -50,6 +59,33 @@
         "files": [
             "./config/packages/nelmio_cors.yaml"
         ]
+    },
+    "phpstan/phpstan": {
+        "version": "1.10",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "f10b8054de1a94a3b9e8806a6453fd5c98491c44"
+        },
+        "files": [
+            "./phpstan.dist.neon"
+        ]
+    },
+    "squizlabs/php_codesniffer": {
+        "version": "3.7",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "3.6",
+            "ref": "1019e5c08d4821cb9b77f4891f8e9c31ff20ac6f"
+        },
+        "files": [
+            "./phpcs.xml.dist"
+        ]
+    },
+    "stof/doctrine-extensions-bundle": {
+        "version": "v1.8.0"
     },
     "symfony/console": {
         "version": "6.3",
@@ -93,6 +129,15 @@
             "./src/Controller/.gitignore",
             "./src/Kernel.php"
         ]
+    },
+    "symfony/maker-bundle": {
+        "version": "1.50",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
+        }
     },
     "symfony/routing": {
         "version": "6.3",
