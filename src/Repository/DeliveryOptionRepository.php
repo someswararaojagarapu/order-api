@@ -21,20 +21,18 @@ class DeliveryOptionRepository extends ServiceEntityRepository
         parent::__construct($registry, DeliveryOption::class);
     }
 
-//    /**
-//     * @return DeliveryOption[] Returns an array of DeliveryOption objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('d.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return DeliveryOption[] Returns an array of DeliveryOption objects
+     */
+    public function findDeliveryOptionByName(string $name): array
+    {
+        return $this->createQueryBuilder('d')
+            ->where('d.name = :val')
+            ->setParameter('val', $name)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?DeliveryOption
 //    {

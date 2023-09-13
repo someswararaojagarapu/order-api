@@ -3,7 +3,10 @@
 namespace App\OrderApi\Entity;
 
 use App\OrderApi\Repository\OrderItemRepository;
+use App\OrderApi\Utils\OrderGroups;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 #[ORM\Entity(repositoryClass: OrderItemRepository::class)]
 class OrderItem
@@ -14,9 +17,17 @@ class OrderItem
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Groups([
+        OrderGroups::GET_ORDER
+    ])]
+    #[SerializedName('quantity')]
     private ?int $quantity = null;
 
     #[ORM\ManyToOne(inversedBy: 'orderItems')]
+    #[Groups([
+        OrderGroups::GET_ORDER
+    ])]
+    #[SerializedName('order_id')]
     private ?Order $order = null;
 
     public function getId(): ?int

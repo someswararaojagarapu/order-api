@@ -3,11 +3,15 @@
 namespace App\OrderApi\Entity;
 
 use App\OrderApi\Repository\OrderStatusRepository;
+use App\OrderApi\Utils\OrderGroups;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\SerializedName;
 
 #[ORM\Entity(repositoryClass: OrderStatusRepository::class)]
+#[ORM\Index(columns: ['name'], name: 'order_status')]
 class OrderStatus
 {
     #[ORM\Id]
@@ -16,9 +20,17 @@ class OrderStatus
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups([
+        OrderGroups::GET_ORDER
+    ])]
+    #[SerializedName('order_status')]
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'orderStatus', targetEntity: Order::class)]
+    #[Groups([
+        OrderGroups::GET_ORDER
+    ])]
+    #[SerializedName('order')]
     private Collection $orders;
 
     public function __construct()
