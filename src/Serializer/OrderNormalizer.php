@@ -27,7 +27,7 @@ class OrderNormalizer implements NormalizerInterface, NormalizerAwareInterface
             return $data;
         }
         if (
-            !in_array(OrderGroups::GET_ORDER, $context['groups'])
+            in_array(OrderGroups::GET_ORDER, $context['groups'])
         ) {
             $data = $this->normalizer->normalize($object, $format, $context);
         }

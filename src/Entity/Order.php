@@ -4,6 +4,7 @@ namespace App\OrderApi\Entity;
 
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
 use App\OrderApi\Dto\OrderInput;
 use App\OrderApi\Entity\Traits\TimestampableTrait;
 use App\OrderApi\Repository\OrderRepository;
@@ -24,11 +25,16 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 #[ORM\Table(name:"orders")]
 #[ApiResource(
     operations: [
-        new GetCollection(
-            uriTemplate: '/order',
+        new Get(
+            uriTemplate: '/order/{id}',
             formats: ['jsonld'],
             normalizationContext: ['groups' => [OrderGroups::GET_ORDER]],
-            name: 'order_search'
+            name: 'get_order',
+            openapiContext: [
+                'summary' => 'Order filtering properties',
+                'description' => 'Filtering options included with querystring',
+                'parameters' => self::GET_ORDER_ID_FILTER
+            ]
         ),
         new Post(
             uriTemplate: '/order',
@@ -105,6 +111,23 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 class Order
 {
     use TimestampableTrait;
+
+    const GET_ORDER_ID_FILTER = [
+        [
+            'name' => 'id',
+            'type' => 'string',
+            'in' => 'path',
+            'required' => false,
+            'example' => 1,
+        ],
+        [
+            'name' => 'status',
+            'type' => 'string',
+            'in' => 'path',
+            'required' => false,
+            'example' => 'Completed',
+        ]
+    ];
 
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'AUTO')]
