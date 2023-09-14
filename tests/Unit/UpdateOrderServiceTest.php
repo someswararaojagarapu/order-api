@@ -4,17 +4,11 @@ declare(strict_types=1);
 
 namespace App\OrderApi\Tests\Unit;
 
-use App\CodeAssignmentDistance\Service\ApiClient;
-use App\CodeAssignmentDistance\Service\DistanceCalculationService;
-use App\CodeAssignmentDistance\Service\GeoLocationService;
-use App\OrderApi\Dto\OrderInput;
 use App\OrderApi\Dto\UpdateOrderInput;
-use App\OrderApi\Services\CreateOrder;
 use App\OrderApi\Services\UpdateOrder;
 use App\OrderApi\Services\ValidationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpFoundation\Response;
 
 class UpdateOrderServiceTest extends WebTestCase
 {
