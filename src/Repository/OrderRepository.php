@@ -53,4 +53,16 @@ class OrderRepository extends ServiceEntityRepository
             ->getScalarResult()
         ;
     }
+    public function getOrdersByProcessing($status): array
+    {
+        return $this->createQueryBuilder('o')
+            ->select('o.id', 'o.deliveryDate')
+            ->leftJoin('o.orderStatus', 'os')
+            ->andWhere('os.name = :status')
+            ->setParameter('status', $status)
+            ->orderBy('o.id', 'ASC')
+            ->getQuery()
+            ->getScalarResult()
+            ;
+    }
 }
