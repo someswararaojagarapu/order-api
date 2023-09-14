@@ -21,16 +21,26 @@ class DeliveryOptionRepository extends ServiceEntityRepository
         parent::__construct($registry, DeliveryOption::class);
     }
 
-    /**
-     * @return DeliveryOption[] Returns an array of DeliveryOption objects
-     */
-    public function findByName(string $name): DeliveryOption
+    public function findAllDeliveryOptions(): array
     {
-        return $this->createQueryBuilder('d')
-            ->where('d.name = :name')
-            ->setParameter('name', $name)
+        $result = $this->createQueryBuilder('d')
+            ->select('d.name')
             ->getQuery()
-            ->getSingleResult()
-        ;
+            ->getResult();
+
+        return array_column($result, 'name');
     }
+
+//    /**
+//     * @return DeliveryOption[] Returns an array of DeliveryOption objects
+//     */
+//    public function findByName(string $name): DeliveryOption
+//    {
+//        return $this->createQueryBuilder('d')
+//            ->where('d.name = :name')
+//            ->setParameter('name', $name)
+//            ->getQuery()
+//            ->getSingleResult()
+//        ;
+//    }
 }

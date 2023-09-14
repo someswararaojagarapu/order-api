@@ -2,16 +2,16 @@
 
 namespace App\OrderApi\State;
 
-use ApiPlatform\State\ProcessorInterface;
 use ApiPlatform\Metadata\Operation;
-use App\OrderApi\Services\CreateOrder;
+use ApiPlatform\State\ProcessorInterface;
+use App\OrderApi\Services\UpdateOrder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class CreateOrderProcessor implements ProcessorInterface
+class UpdateOrderProcessor implements ProcessorInterface
 {
     public function __construct(
-        private readonly CreateOrder $createOrder
+        private readonly UpdateOrder $createOrder
     ) {
 
     }
@@ -22,8 +22,7 @@ class CreateOrderProcessor implements ProcessorInterface
         array $uriVariables = [],
         array $context = []
     ): JsonResponse {
-
-        $result = $this->createOrder->createOrder($data);
+        $result = $this->createOrder->updatedOrder($data);
         if (is_array($result)) {
             return new JsonResponse(
                 $result['type'] . ' allowed only' . json_encode($result['result']),
@@ -32,7 +31,7 @@ class CreateOrderProcessor implements ProcessorInterface
         }
 
         return new JsonResponse(
-            'Order created successfully',
+            'Order updated successfully',
             Response::HTTP_CREATED
         );
     }

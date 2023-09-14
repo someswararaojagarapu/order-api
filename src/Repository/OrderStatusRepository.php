@@ -21,16 +21,26 @@ class OrderStatusRepository extends ServiceEntityRepository
         parent::__construct($registry, OrderStatus::class);
     }
 
-    /**
-     * @return OrderStatus[] Returns an array of OrderStatus objects
-     */
-    public function findByName(string $name): OrderStatus
+    public function findAllOrderStatus(): array
     {
-        return $this->createQueryBuilder('o')
-            ->where('o.name = :name')
-            ->setParameter('name', $name)
+        $result = $this->createQueryBuilder('o')
+            ->select('o.name')
             ->getQuery()
-            ->getSingleResult()
-        ;
+            ->getResult();
+
+        return array_column($result, 'name');
     }
+
+//    /**
+//     * @return OrderStatus[] Returns an array of OrderStatus objects
+//     */
+//    public function findByName(string $name): OrderStatus
+//    {
+//        return $this->createQueryBuilder('o')
+//            ->where('o.name = :name')
+//            ->setParameter('name', $name)
+//            ->getQuery()
+//            ->getSingleResult()
+//        ;
+//    }
 }

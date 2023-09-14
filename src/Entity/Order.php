@@ -8,9 +8,11 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\OrderApi\Controller\OrderController;
 use App\OrderApi\Dto\OrderInput;
+use App\OrderApi\Dto\UpdateOrderInput;
 use App\OrderApi\Entity\Traits\TimestampableTrait;
 use App\OrderApi\Repository\OrderRepository;
 use App\OrderApi\State\CreateOrderProcessor;
+use App\OrderApi\State\UpdateOrderProcessor;
 use App\OrderApi\Utils\OrderGroups;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -114,8 +116,9 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
                 ]
             ],
             denormalizationContext: ['groups' => [OrderGroups::PATCH_ORDER]],
-            input: OrderInput::class,
-            processor: CreateOrderProcessor::class
+            validationContext: ['groups' => [OrderGroups::PATCH_ORDER]],
+            input: UpdateOrderInput::class,
+            processor: UpdateOrderProcessor::class
         )
         ],
     normalizationContext: ['groups' => ['order:read']],
