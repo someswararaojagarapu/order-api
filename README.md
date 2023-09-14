@@ -39,6 +39,7 @@ symfony server:start
 
 ## Running PHPUnit Tests
 PHPUnit is used for testing the application. Run the following command to execute the tests.
+
 Please note Currently Unit tests are WIP
 
 ./vendor/bin/phpunit
