@@ -24,23 +24,13 @@ class OrderStatusRepository extends ServiceEntityRepository
     /**
      * @return OrderStatus[] Returns an array of OrderStatus objects
      */
-    public function findOrderStatusByName(string $name): array
+    public function findByName(string $name): OrderStatus
     {
         return $this->createQueryBuilder('o')
-            ->where('o.name = :val')
-            ->setParameter('val', $name)
+            ->where('o.name = :name')
+            ->setParameter('name', $name)
             ->getQuery()
-            ->getResult()
+            ->getSingleResult()
         ;
     }
-
-//    public function findOneBySomeField($value): ?OrderStatus
-//    {
-//        return $this->createQueryBuilder('o')
-//            ->andWhere('o.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

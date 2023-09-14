@@ -11,7 +11,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\SerializedName;
 
 #[ORM\Entity(repositoryClass: OrderStatusRepository::class)]
-#[ORM\Index(columns: ['name'], name: 'order_status')]
 class OrderStatus
 {
     #[ORM\Id]
@@ -21,7 +20,7 @@ class OrderStatus
 
     #[ORM\Column(length: 255)]
     #[Groups([
-        OrderGroups::GET_ORDER
+        OrderGroups::GET_ORDER, OrderGroups::CREATE_ORDER
     ])]
     #[SerializedName('order_status')]
     private ?string $name = null;

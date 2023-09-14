@@ -24,23 +24,13 @@ class DeliveryOptionRepository extends ServiceEntityRepository
     /**
      * @return DeliveryOption[] Returns an array of DeliveryOption objects
      */
-    public function findDeliveryOptionByName(string $name): array
+    public function findByName(string $name): DeliveryOption
     {
         return $this->createQueryBuilder('d')
-            ->where('d.name = :val')
-            ->setParameter('val', $name)
+            ->where('d.name = :name')
+            ->setParameter('name', $name)
             ->getQuery()
-            ->getResult()
+            ->getSingleResult()
         ;
     }
-
-//    public function findOneBySomeField($value): ?DeliveryOption
-//    {
-//        return $this->createQueryBuilder('d')
-//            ->andWhere('d.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
 }

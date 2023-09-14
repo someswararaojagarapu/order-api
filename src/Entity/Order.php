@@ -14,7 +14,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Patch;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -28,13 +27,13 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
         new Get(
             uriTemplate: '/order/{id}',
             formats: ['jsonld'],
-            normalizationContext: ['groups' => [OrderGroups::GET_ORDER]],
-            name: 'get_order',
             openapiContext: [
                 'summary' => 'Order filtering properties',
                 'description' => 'Filtering options included with querystring',
                 'parameters' => self::GET_ORDER_ID_FILTER
-            ]
+            ],
+            normalizationContext: ['groups' => [OrderGroups::GET_ORDER]],
+            name: 'get_order'
         ),
         new Post(
             uriTemplate: '/order',

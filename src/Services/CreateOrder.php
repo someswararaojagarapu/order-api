@@ -25,10 +25,8 @@ class CreateOrder
 
         $orderItem = new OrderItem();
         $orderItem->setQuantity($data->getQuantity());
-//        $deliveryOption = $this->entityManager->getRepository(DeliveryOption::class)->findDeliveryOptionByName($data->getDeliveryOption());
-//        $orderStatus = $this->entityManager->getRepository(OrderStatus::class)->findOrderStatusByName($data->getOrderStatus());
-        $deliveryOption = $this->entityManager->getRepository(DeliveryOption::class)->find(5);
-        $orderStatus = $this->entityManager->getRepository(OrderStatus::class)->find(5);
+        $deliveryOption = $this->entityManager->getRepository(DeliveryOption::class)->findByName($data->getDeliveryOption());
+        $orderStatus = $this->entityManager->getRepository(OrderStatus::class)->findByName($data->getOrderStatus());
         $order
             ->setName($data->getName())
             ->setDeliveryDate($deliveryDate)
