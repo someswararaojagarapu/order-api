@@ -26,7 +26,7 @@ class UpdateOrderProcessor implements ProcessorInterface
         if (is_array($result)) {
             return new JsonResponse(
                 $result['type'] . ' allowed only' . json_encode($result['result']),
-                Response::HTTP_CREATED
+                Response::HTTP_BAD_REQUEST
             );
         }
 

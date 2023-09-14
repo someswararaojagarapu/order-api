@@ -25,6 +25,7 @@ class OrderStatusFixtures extends Fixture
         return  [
             'Pending Payment',
             'Processing',
+            'Delayed',
             'Shipped',
             'Delivered',
             'Canceled',
