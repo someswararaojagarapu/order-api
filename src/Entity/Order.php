@@ -5,6 +5,8 @@ namespace App\OrderApi\Entity;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use App\OrderApi\Controller\OrderController;
 use App\OrderApi\Dto\OrderInput;
 use App\OrderApi\Entity\Traits\TimestampableTrait;
 use App\OrderApi\Repository\OrderRepository;
@@ -34,6 +36,18 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
             ],
             normalizationContext: ['groups' => [OrderGroups::GET_ORDER]],
             name: 'get_order'
+        ),
+        new GetCollection(
+            uriTemplate: '/order',
+            formats: ['json'],
+            controller: OrderController::class,
+            openapiContext: [
+                'summary' => 'Order filtering properties',
+                'description' => 'Filtering options included with querystring',
+                'parameters' => self::GET_ORDER_STATUS_FILTER
+            ],
+            normalizationContext: ['groups' => [OrderGroups::GET_ORDER]],
+            name: 'get_order_by_status'
         ),
         new Post(
             uriTemplate: '/order',
@@ -114,15 +128,18 @@ class Order
     const GET_ORDER_ID_FILTER = [
         [
             'name' => 'id',
-            'type' => 'string',
+            'type' => 'integer',
             'in' => 'path',
             'required' => false,
             'example' => 1,
-        ],
+        ]
+    ];
+
+    const GET_ORDER_STATUS_FILTER = [
         [
             'name' => 'status',
             'type' => 'string',
-            'in' => 'path',
+            'in' => 'query',
             'required' => false,
             'example' => 'Completed',
         ]

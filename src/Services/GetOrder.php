@@ -17,6 +17,30 @@ class GetOrder
         return $data;
     }
 
+    public function getOrders(array $orders): array
+    {
+        $result = [];
+        foreach ($orders as $order) {
+            $estimatedDeliveryDate = $order['estimated_delivery_date'] ?? '';
+            $result[] = [
+                'order_id' => $order['order_id'] ?? '',
+                'name' => $order['name'] ?? '',
+                'delivery_address' => $order['delivery_address'] ?? '',
+                'order_items' => [
+                    'id' => $order['order_item_id'] ?? '',
+                    'quantity' => $order['order_quantity'] ?? ''
+                ],
+                'order_status' => $order['order_status'] ?? '',
+                'delivery_option' => $order['delivery_option'] ?? '',
+                'estimated_delivery_date' => $this->getEstimatedDelivaryDate($estimatedDeliveryDate),
+                'estimated_delivery_time' => $this->getEstimatedDelivaryTime($estimatedDeliveryDate),
+                'created_at' => $order['created_at'] ?? '',
+                'last_saved_date' => $order['updated_at'] ?? '',
+            ];
+        }
+        return $result;
+    }
+
     private function getEstimatedDelivaryDate(string $datetimeString): string
     {
         $estimatedDeliveryDate = '';

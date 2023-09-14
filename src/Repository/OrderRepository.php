@@ -21,28 +21,36 @@ class OrderRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
-//    /**
-//     * @return Order[] Returns an array of Order objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('o')
-//            ->andWhere('o.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('o.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Order[] Returns an array of Order objects
+     */
+    public function getOrdersIdsByStatus($status): array
+    {
+        return $this->createQueryBuilder('o')
+            ->select('o.id')
+            ->leftJoin('o.orderStatus', 'os')
+            ->andWhere('os.name = :status')
+            ->setParameter('status', $status)
+            ->orderBy('o.id', 'ASC')
+            ->getQuery()
+            ->getScalarResult()
+        ;
+    }
 
-//    public function findOneBySomeField($value): ?Order
-//    {
-//        return $this->createQueryBuilder('o')
-//            ->andWhere('o.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findOrdersByOrderIds($orderIds): array
+    {
+        return $this->createQueryBuilder('o')
+            ->select('o.id as order_id', 'o.name as name', 'o.deliveryAddress as delivery_address',
+                'os.name as order_status', 'dp.name as delivery_option', 'oi.id as order_item_id', 'oi.quantity as order_quantity',
+            'o.deliveryDate as estimated_delivery_date', 'o.createdAt as created_at', 'o.updatedAt as updated_at'
+            )
+            ->leftJoin('o.orderStatus', 'os')
+            ->leftJoin('o.deliveryOption', 'dp')
+            ->leftJoin('o.orderItems', 'oi')
+            ->andWhere('o.id IN (:ids)')
+            ->setParameter('ids', $orderIds)
+            ->getQuery()
+            ->getScalarResult()
+        ;
+    }
 }
