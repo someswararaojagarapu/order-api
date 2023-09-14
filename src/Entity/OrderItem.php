@@ -14,6 +14,9 @@ class OrderItem
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups([
+        OrderGroups::GET_ORDER
+    ])]
     private ?int $id = null;
 
     #[ORM\Column]
@@ -24,9 +27,6 @@ class OrderItem
     private ?int $quantity = null;
 
     #[ORM\ManyToOne(inversedBy: 'orderItems')]
-    #[Groups([
-        OrderGroups::GET_ORDER
-    ])]
     #[SerializedName('order_id')]
     private ?Order $order = null;
 

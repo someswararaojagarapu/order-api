@@ -26,7 +26,7 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
     operations: [
         new Get(
             uriTemplate: '/order/{id}',
-            formats: ['jsonld'],
+            formats: ['json'],
             openapiContext: [
                 'summary' => 'Order filtering properties',
                 'description' => 'Filtering options included with querystring',
@@ -177,7 +177,7 @@ class Order
     #[Groups([
         OrderGroups::GET_ORDER, OrderGroups::CREATE_ORDER
     ])]
-    #[SerializedName('delivery_date')]
+    #[SerializedName('estimated_delivery_date')]
     private ?\DateTimeInterface $deliveryDate = null;
 
     public function __construct()

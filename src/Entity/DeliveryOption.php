@@ -19,7 +19,7 @@ class DeliveryOption
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[SerializedName('name')]
+    #[SerializedName('delivery_option')]
     #[Groups([
         OrderGroups::GET_ORDER, OrderGroups::CREATE_ORDER
     ])]

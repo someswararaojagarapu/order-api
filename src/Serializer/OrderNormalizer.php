@@ -3,6 +3,7 @@
 namespace App\OrderApi\Serializer;
 
 use App\OrderApi\Entity\Order;
+use App\OrderApi\Services\GetOrder;
 use App\OrderApi\Utils\OrderGroups;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -14,7 +15,7 @@ class OrderNormalizer implements NormalizerInterface, NormalizerAwareInterface
 
     private const ALREADY_CALLED = 'ORDER_NORMALIZER_ALREADY_CALLED';
 
-    public function __construct()
+    public function __construct(private readonly GetOrder $getOrder)
     {
 
     }
@@ -30,6 +31,7 @@ class OrderNormalizer implements NormalizerInterface, NormalizerAwareInterface
             in_array(OrderGroups::GET_ORDER, $context['groups'])
         ) {
             $data = $this->normalizer->normalize($object, $format, $context);
+            $data = $this->getOrder->getOrderDetails($data);
         }
         return $data;
     }

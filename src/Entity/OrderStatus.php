@@ -26,9 +26,6 @@ class OrderStatus
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'orderStatus', targetEntity: Order::class)]
-    #[Groups([
-        OrderGroups::GET_ORDER
-    ])]
     #[SerializedName('order')]
     private Collection $orders;
 
